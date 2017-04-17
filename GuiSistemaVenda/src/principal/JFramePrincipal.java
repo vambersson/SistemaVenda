@@ -7,6 +7,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.LayoutManager;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -17,6 +19,7 @@ import interna.cliente.JICadCliente;
 import util.Aparencia;
 
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -24,6 +27,9 @@ import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JToolBar;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 public class JFramePrincipal extends JFrame {
 
@@ -57,14 +63,15 @@ public class JFramePrincipal extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 768);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/IconPrincipal16x16.png")));
 		contentPane = new JPanel();
 		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
 		
 		jpanelBarra = new JPanel();
-		jpanelBarra.setPreferredSize(new Dimension(Short.MAX_VALUE, 50));
-		jpanelBarra.setMaximumSize(new Dimension(Short.MAX_VALUE, 50));
+		jpanelBarra.setPreferredSize(new Dimension(Short.MAX_VALUE, 69));
+		jpanelBarra.setMaximumSize(new Dimension(Short.MAX_VALUE, 69));
 		jpanelBarra.setLayout(null);
 		contentPane.add(jpanelBarra);
 		
@@ -105,14 +112,8 @@ public class JFramePrincipal extends JFrame {
 		JMenuItem mntmCadastroCliente = new JMenuItem("Cadastro Cliente");
 		mntmCadastroCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JICadCliente cadcli = JICadCliente.getInstacia();
-								
-				// Centraliza 
-				cadcli.setLocation((jpanelPrincipal.getSize().width - cadcli.getSize().width) /2, (jpanelPrincipal.getSize().height - cadcli.getSize().height) /2 );
 				
-				cadcli.setVisible(true);
-				
-				jpanelPrincipal.add(cadcli);
+				chamarTelaCadCliente();
 			}
 		});
 		mnManutenoCliente.add(mntmCadastroCliente);
@@ -155,6 +156,25 @@ public class JFramePrincipal extends JFrame {
 		
 		JMenuItem mntmItem = new JMenuItem("Item");
 		mnCadastros_1.add(mntmItem);
+		
+		JToolBar toolBar = new JToolBar();
+		toolBar.setFloatable(false);
+		toolBar.setBounds(0, 21, 900, 48);
+		jpanelBarra.add(toolBar);
+		
+		JButton btnToolBarCadCliente = new JButton();
+		btnToolBarCadCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				chamarTelaCadCliente();
+				btnToolBarCadCliente.setFocusable(false);
+				
+			}
+		});
+		btnToolBarCadCliente.setIcon(new ImageIcon(getClass().getResource("/img/BtnClient48x48.png")));
+		btnToolBarCadCliente.setFocusable(false);
+		toolBar.add(btnToolBarCadCliente);
+		
+		
 		
 		
 		
@@ -208,6 +228,33 @@ public class JFramePrincipal extends JFrame {
 	private void rodapeNomeUsuario(){
 		lblUsuario.setText("Nome do usuário");
 	}
+	
+	
+	
+	// TELAS DE CADASTROS 
+	
+	private void chamarTelaCadCliente(){
+		
+		JICadCliente cadcli = JICadCliente.getInstacia();
+						
+		// Centraliza 
+		cadcli.setLocation((jpanelPrincipal.getSize().width - cadcli.getSize().width) /2, (jpanelPrincipal.getSize().height - cadcli.getSize().height) /2 );
+		
+		cadcli.setVisible(true);
+		
+		jpanelPrincipal.add(cadcli);
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
