@@ -8,6 +8,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,21 +20,25 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JSeparator;
+import javax.swing.JFormattedTextField;
 
 public class JICadCliente extends JInternalFrame {
 
 	private static JICadCliente instacia;
-	private JButton btnFecha;
+	
+	private JButton btnFiltroBuscar, btnFiltroLimpar;
 
-	private JTextField textFiltoCodigo, textFiltroNome, textFiltroCPF_CNPJ;
+	private JTextField textFiltoCodigo, textFiltroNome;
 
-	private JRadioButton rdFiltroFsica, rdFiltroJurdica, rdFiltroOutras, rdManuFsica, rdManuJuridica, rdManuOutras;
+	private JRadioButton rdFiltroFsica, rdFiltroJurdica, rdFiltroOutras, rdManuFsica, rdManuJuridica, rdManuOutras ;
 	private JTable table;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textFiltroCPF_CNPJ;
 
 	/**
 	 * Launch the application.
@@ -66,6 +71,8 @@ public class JICadCliente extends JInternalFrame {
 		setResizable(true);
 		setMaximizable(true);
 		setMaximizable(true);
+		this.setClosable(true);
+		
 		
 		setFrameIcon(new ImageIcon(getClass().getResource("/img/IconClient16x16.png")));
 		setBounds(100, 100, 814, 486);
@@ -86,22 +93,13 @@ public class JICadCliente extends JInternalFrame {
 		tabbedPaneSegunda.addTab("Filtro", null, panelFiltro, null);
 		panelFiltro.setLayout(null);
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(676, 34, 89, 23);
-		panelFiltro.add(btnBuscar);
+		btnFiltroBuscar = new JButton("Buscar");
+		btnFiltroBuscar.setBounds(676, 34, 89, 23);
+		panelFiltro.add(btnFiltroBuscar);
 		
-		JButton btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(676, 68, 89, 23);
-		panelFiltro.add(btnLimpar);
-		
-		btnFecha = new JButton("Fecha");
-		btnFecha.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				fecha();
-			}
-		});
-		btnFecha.setBounds(676, 356, 89, 23);
-		panelFiltro.add(btnFecha);
+		btnFiltroLimpar = new JButton("Limpar");
+		btnFiltroLimpar.setBounds(676, 68, 89, 23);
+		panelFiltro.add(btnFiltroLimpar);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -111,13 +109,13 @@ public class JICadCliente extends JInternalFrame {
 		
 		JLabel lblCdigo = new JLabel("Código Cliente");
 		lblCdigo.setBounds(30, 11, 100, 14);
-		//lblCdigo.setRequestFocusEnabled(true);
 		panel.add(lblCdigo);
 		
 		textFiltoCodigo = new JTextField();
 		textFiltoCodigo.setBounds(30, 36, 86, 20);
 		panel.add(textFiltoCodigo);
 		textFiltoCodigo.setColumns(10);
+		textFiltoCodigo.requestFocus();
 		
 		
 		JLabel lblNome = new JLabel("Nome");
@@ -151,6 +149,7 @@ public class JICadCliente extends JInternalFrame {
 		rdFiltroJurdica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rdFiltroFsica.setSelected(false); 
+				textFiltroCPF_CNPJ.setText("");
 				rdFiltroOutras.setSelected(false);
 			}
 		});
@@ -158,23 +157,20 @@ public class JICadCliente extends JInternalFrame {
 		panel_1.add(rdFiltroJurdica);
 		
 		rdFiltroOutras = new JRadioButton("Outras");
-		rdFiltroOutras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				rdFiltroFsica.setSelected(false); 
-				rdFiltroJurdica.setSelected(false);
-			}
-		});
+		
 		rdFiltroOutras.setBounds(134, 20, 78, 23);
 		panel_1.add(rdFiltroOutras);
 		
 		JLabel lblCpfcnpj = new JLabel("CPF/CNPJ");
-		lblCpfcnpj.setBounds(30, 196, 59, 14);
+		lblCpfcnpj.setBounds(30, 196, 51, 14);
 		panel.add(lblCpfcnpj);
 		
 		textFiltroCPF_CNPJ = new JTextField();
-		textFiltroCPF_CNPJ.setBounds(30, 221, 150, 20);
+		textFiltroCPF_CNPJ.setBounds(30, 221, 138, 20);
 		panel.add(textFiltroCPF_CNPJ);
 		textFiltroCPF_CNPJ.setColumns(10);
+		
+			
 		
 		JPanel panelResultado = new JPanel();
 		tabbedPaneSegunda.addTab("Resultado", null, panelResultado, null);
@@ -281,25 +277,21 @@ public class JICadCliente extends JInternalFrame {
 		button_1.setBounds(10, 398, 89, 23);
 		panelManutencao.add(button_1);
 		
-		JButton btnManuFecha = new JButton("Fechar");
-		btnManuFecha.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				fecha();
-			}
-		});
-		btnManuFecha.setBounds(694, 398, 89, 23);
-		panelManutencao.add(btnManuFecha);
-		
 		
 
 	}
-
-	public void keyPressed(KeyEvent event) {
-		JOptionPane.showMessageDialog(null, "Tecla " + event.getKeyChar());
-	}
-
-	private void fecha() {
+	
+	@Override
+	public void setClosable(boolean b) {
+		
 		instacia = null;
-		this.dispose();
+		super.setClosable(b);
+		
 	}
+
+	
+	
+	
+	
+	
 }

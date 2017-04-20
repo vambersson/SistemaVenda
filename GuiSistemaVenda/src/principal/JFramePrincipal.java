@@ -26,6 +26,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JToolBar;
 import javax.swing.JButton;
@@ -84,7 +85,7 @@ public class JFramePrincipal extends JFrame {
 		jpanelRodape.setPreferredSize(new Dimension(Short.MAX_VALUE, 30));
 		jpanelRodape.setMaximumSize(new Dimension(Short.MAX_VALUE, 30));
 		jpanelRodape.setLayout(null);
-		jpanelRodape.setBackground(Color.blue);
+		//jpanelRodape.setBackground(Color.blue);
 		contentPane.add(jpanelRodape);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -191,16 +192,12 @@ public class JFramePrincipal extends JFrame {
 		jpanelRodape.add(lblDataAtual);
 		
 		lblEmpresa = new JLabel("Empresa");
-		lblEmpresa.setBounds(460, 11, 500, 14);
+		lblEmpresa.setBounds(460, 11, 414, 14);
 		jpanelRodape.add(lblEmpresa);
 		
 		lblUsuario = new JLabel("usuario");
-		lblUsuario.setBounds(884, 11, 200, 14);
+		lblUsuario.setBounds(884, 11, 114, 14);
 		jpanelRodape.add(lblUsuario);
-		
-		
-		
-		
 		
 		
 		// Metodos
@@ -219,7 +216,7 @@ public class JFramePrincipal extends JFrame {
 	}
 	
 	private void rodapeDataAtual(){
-		lblDataAtual.setText( new Date().toString());
+		lblDataAtual.setText( convertData(new Date()));
 	}
 	
 	private void rodapeNomeEmpresa(){
@@ -227,6 +224,18 @@ public class JFramePrincipal extends JFrame {
 	}
 	private void rodapeNomeUsuario(){
 		lblUsuario.setText("Nome do usuário");
+	}
+	
+	//FUNÇÕES 
+	
+	private String convertData(Date data){
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		String dataconvertida = sdf.format(data);
+		
+		return dataconvertida;
+		
 	}
 	
 	
@@ -243,6 +252,11 @@ public class JFramePrincipal extends JFrame {
 		cadcli.setVisible(true);
 		
 		jpanelPrincipal.add(cadcli);
+		
+		
+		
+		
+		
 		
 		
 		
