@@ -137,8 +137,11 @@ public class JICadCliente extends JInternalFrame {
 		
 		rdFiltroFsica = new JRadioButton("F\u00EDsica");
 		rdFiltroFsica.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				rdFiltroJurdica.setSelected(false); 
+				rdFiltroJurdica.setSelected(false);
+				textFiltroCPF_CNPJ.setText("");
 				rdFiltroOutras.setSelected(false);
 			}
 		});
@@ -147,6 +150,8 @@ public class JICadCliente extends JInternalFrame {
 		
 		rdFiltroJurdica = new JRadioButton("Jur\u00EDdica");
 		rdFiltroJurdica.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				rdFiltroFsica.setSelected(false); 
 				textFiltroCPF_CNPJ.setText("");
@@ -157,7 +162,15 @@ public class JICadCliente extends JInternalFrame {
 		panel_1.add(rdFiltroJurdica);
 		
 		rdFiltroOutras = new JRadioButton("Outras");
-		
+		rdFiltroOutras.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rdFiltroFsica.setSelected(false); 
+				textFiltroCPF_CNPJ.setText("");
+				rdFiltroJurdica.setSelected(false);
+			}
+		});
 		rdFiltroOutras.setBounds(134, 20, 78, 23);
 		panel_1.add(rdFiltroOutras);
 		
