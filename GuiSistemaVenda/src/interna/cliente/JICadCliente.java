@@ -73,7 +73,6 @@ public class JICadCliente extends JInternalFrame {
 		setMaximizable(true);
 		this.setClosable(true);
 		
-		
 		setFrameIcon(new ImageIcon(getClass().getResource("/img/IconClient16x16.png")));
 		setBounds(100, 100, 814, 486);
 		getContentPane().setLayout(null);
@@ -117,7 +116,6 @@ public class JICadCliente extends JInternalFrame {
 		textFiltoCodigo.setColumns(10);
 		textFiltoCodigo.requestFocus();
 		
-		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setBounds(30, 67, 46, 14);
 		panel.add(lblNome);
@@ -132,8 +130,6 @@ public class JICadCliente extends JInternalFrame {
 		panel_1.setBounds(30, 135, 218, 50);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
-		
-		
 		
 		rdFiltroFsica = new JRadioButton("F\u00EDsica");
 		rdFiltroFsica.addActionListener(new ActionListener() {
@@ -182,8 +178,6 @@ public class JICadCliente extends JInternalFrame {
 		textFiltroCPF_CNPJ.setBounds(30, 221, 138, 20);
 		panel.add(textFiltroCPF_CNPJ);
 		textFiltroCPF_CNPJ.setColumns(10);
-		
-			
 		
 		JPanel panelResultado = new JPanel();
 		tabbedPaneSegunda.addTab("Resultado", null, panelResultado, null);
@@ -247,6 +241,8 @@ public class JICadCliente extends JInternalFrame {
 		
 		rdManuFsica = new JRadioButton("F\u00EDsica");
 		rdManuFsica.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				rdManuJuridica.setSelected(false);
 				rdManuOutras.setSelected(false);
@@ -258,6 +254,8 @@ public class JICadCliente extends JInternalFrame {
 		
 		rdManuJuridica = new JRadioButton("Jur\u00EDdica");
 		rdManuJuridica.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				rdManuOutras.setSelected(false);
 				rdManuFsica.setSelected(false);
@@ -268,6 +266,8 @@ public class JICadCliente extends JInternalFrame {
 		
 		rdManuOutras = new JRadioButton("Outras");
 		rdManuOutras.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				rdManuFsica.setSelected(false);
 				rdManuJuridica.setSelected(false);
@@ -291,7 +291,6 @@ public class JICadCliente extends JInternalFrame {
 		panelManutencao.add(button_1);
 		
 		
-
 	}
 	
 	@Override
